@@ -1,0 +1,22 @@
+{
+  "files": {
+    "app.js": "/superior-coaching/static/js/app.4c29ae1b.chunk.js",
+    "app.js.map": "/superior-coaching/static/js/app.4c29ae1b.chunk.js.map",
+    "runtime~app.js": "/superior-coaching/static/js/runtime~app.dc919ccd.js",
+    "runtime~app.js.map": "/superior-coaching/static/js/runtime~app.dc919ccd.js.map",
+    "static/js/2.c5718c00.chunk.js": "/superior-coaching/static/js/2.c5718c00.chunk.js",
+    "static/js/2.c5718c00.chunk.js.map": "/superior-coaching/static/js/2.c5718c00.chunk.js.map",
+    "favicon-16.png": "/superior-coaching/favicon-16.png",
+    "favicon-32.png": "/superior-coaching/favicon-32.png",
+    "favicon.ico": "/superior-coaching/favicon.ico",
+    "index.html": "/superior-coaching/index.html",
+    "manifest.json": "/superior-coaching/manifest.json",
+    "serve.json": "/superior-coaching/serve.json",
+    "static/js/2.c5718c00.chunk.js.LICENSE.txt": "/superior-coaching/static/js/2.c5718c00.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime~app.dc919ccd.js",
+    "static/js/2.c5718c00.chunk.js",
+    "static/js/app.4c29ae1b.chunk.js"
+  ]
+}
