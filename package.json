@@ -6,7 +6,9 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "deploy": "gh-pages -d web-build",
+    "predeploy": "expo export:web"
   },
   "dependencies": {
     "@expo/webpack-config": "^0.16.19",
@@ -27,8 +29,10 @@
     "@types/react-native": "0.69.8",
     "@types/react-test-renderer": "18.0.0",
     "eslint": "8.23.0",
+    "gh-pages": "^4.0.0",
     "prettier": "2.7.1",
     "typescript": "4.8.2"
   },
+  "homepage": "http://stevenjburns.github.io/superior-coaching",
   "private": true
 }
