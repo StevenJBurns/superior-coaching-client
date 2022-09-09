@@ -20,8 +20,8 @@ export const Screen = (props: Props): JSX.Element => (
     <NavPanel>
       <NavButton title='Home' navigation={props.navigation} />
       <NavButton title='Athletes' navigation={props.navigation}/>
+      <NavButton title='Planning' navigation={props.navigation}/>
       <NavButton title='References' navigation={props.navigation}/>
-      <NavButton title='About' navigation={props.navigation}/>
     </NavPanel>
     <View style={styles.content}>
       { props.children }
