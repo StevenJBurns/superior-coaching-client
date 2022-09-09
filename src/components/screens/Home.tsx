@@ -7,8 +7,8 @@ const styles = StyleSheet.create({
   }
 });
 
-export const Home = () => (
-  <Screen>
+export const Home = (props: { navigation: any }) => (
+  <Screen navigation={props.navigation}>
     <Text style={styles.text}>HOME</Text>
   </Screen>
 );

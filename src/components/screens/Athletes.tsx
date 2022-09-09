@@ -7,8 +7,8 @@ const styles = StyleSheet.create({
   }
 });
 
-export const Athletes = () => (
-  <Screen>
+export const Athletes = (props: { navigation: any}) => (
+  <Screen navigation={props.navigation}>
     <Text style={styles.text}>Athletes</Text>
   </Screen>
 );

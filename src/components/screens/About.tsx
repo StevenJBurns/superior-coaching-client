@@ -7,8 +7,8 @@ const styles = StyleSheet.create({
   }
 });
 
-export const About = () => (
-  <Screen>
-    <Text style={styles.text}>Athletes</Text>
+export const About = (props: { navigation: any}) => (
+  <Screen navigation={props.navigation}>
+    <Text style={styles.text}>About</Text>
   </Screen>
 );

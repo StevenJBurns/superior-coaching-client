@@ -7,8 +7,8 @@ const styles = StyleSheet.create({
   }
 });
 
-export const References = () => (
-  <Screen>
+export const References = (props: { navigation: any}) => (
+  <Screen navigation={props.navigation}>
     <Text style={styles.text}>References</Text>
   </Screen>
 );
