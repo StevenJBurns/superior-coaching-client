@@ -1,15 +1,13 @@
 import { ReactNode } from 'react';
-import { Pressable, View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import { NavPanel, NavButton } from '../navigation';
+
+type Props = {
+  children: ReactNode,
+  navigation: any,
+};
 
 const styles = StyleSheet.create({
-  nav: {
-    margin: 4,
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
-  navButton: {
-    margin: 4,
-  },
   content: {
     flex: 1,
     alignItems: 'center',
@@ -17,22 +15,14 @@ const styles = StyleSheet.create({
   },
 });
 
-export const Screen = (props: { children: ReactNode }): JSX.Element => (
+export const Screen = (props: Props): JSX.Element => (
   <>
-    <View style={styles.nav}>
-      <Pressable style={styles.navButton}>
-        <Text>Home</Text>
-      </Pressable>
-      <Pressable style={styles.navButton}>
-        <Text>Athletes</Text>
-      </Pressable>
-      <Pressable style={styles.navButton}>
-        <Text>References</Text>
-      </Pressable>
-      <Pressable style={styles.navButton}>
-        <Text>About</Text>
-      </Pressable>
-    </View>
+    <NavPanel>
+      <NavButton title='Home' navigation={props.navigation} />
+      <NavButton title='Athletes' navigation={props.navigation}/>
+      <NavButton title='References' navigation={props.navigation}/>
+      <NavButton title='About' navigation={props.navigation}/>
+    </NavPanel>
     <View style={styles.content}>
       { props.children }
     </View>
