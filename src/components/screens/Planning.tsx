@@ -1,5 +1,5 @@
 import { Text, StyleSheet } from 'react-native';
-import { Screen } from '.';
+import { Screen } from './Screen';
 
 
 const styles = StyleSheet.create({

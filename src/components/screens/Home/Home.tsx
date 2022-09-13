@@ -1,5 +1,5 @@
 import { Text, StyleSheet } from 'react-native';
-import { Screen } from './';
+import { Screen } from '../Screen';
 
 const styles = StyleSheet.create({
   text: {
@@ -8,8 +8,8 @@ const styles = StyleSheet.create({
   }
 });
 
-export const Athletes = (props: { navigation: any}) => (
+export const Home = (props: { navigation: any }) => (
   <Screen navigation={props.navigation}>
-    <Text style={styles.text}>ATHLETES CONTENT</Text>
+    <Text style={styles.text}>HOME CONTENT</Text>
   </Screen>
 );
