@@ -1,17 +1,8 @@
 import React from 'react';
 import { FlatList, Pressable, Text, StyleSheet, View } from 'react-native';
 import { Screen } from '../../Screen';
+import { AthleteListCard } from './AthleteListCard';
 import mockAthleteData from '../../../../data/athletes.json';
-
-type Athlete = {
-  id: string,
-  lastName: string,
-  firstName: string,
-};
-
-type ItemProps = {
-  item: Athlete
-};
 
 type ListProps = {
   navigation: any,
@@ -52,20 +43,13 @@ const styles = StyleSheet.create({
   }
 });
 
-const AthleteListCard = (props: ItemProps) => (
-  <Pressable style={styles.itemCard}>
-    <Text style={styles.itemLine1}>{`${props.item.lastName}, ${props.item.firstName}`}</Text>
-    <Text style={styles.itemLine2}>{props.item.id}</Text>
-  </Pressable>
-);
-
 export const AthleteList = (props: ListProps) => {
   const [selectedId, setSelectedId] = React.useState();
   const renderItem = ({item}: any) => (<AthleteListCard item={item} />);
 
   return (
     <Screen navigation={props.navigation}>
-      <Text style={styles.text}>ATHLETES CONTENT</Text>
+      <Text style={styles.text}>ATHLETE CONTENT</Text>
       <View style={styles.createCardContainer}>
         <Pressable style={styles.createCardButton}>
           <Text>Create New Athlete Card</Text>
