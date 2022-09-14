@@ -12,10 +12,11 @@ type ItemProps = {
 
 const styles = StyleSheet.create({
   itemCard: {
-    margin: 4,
+    marginVertical: 4,
     padding: 8,
     height: 64,
-    backgroundColor: 'silver',
+    width: '100%',
+    backgroundColor: 'whitesmoke',
   },
   itemLine1 : {
     marginVertical: 2,
