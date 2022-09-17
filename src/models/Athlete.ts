@@ -6,7 +6,6 @@ type NewAthleteArgs = {
   trainingAge?: number,
   phone?: string,
   email?: string,
-
 };
 
 export class Athlete {
@@ -20,17 +19,15 @@ export class Athlete {
 
   constructor(args: NewAthleteArgs) {
     this.#id = args.id || undefined;
-    this.#lastName = args.lastName;
-    this.#firstName = args.firstName;
+    this.#lastName = args.lastName ?? '';
+    this.#firstName = args.firstName ?? '';
     this.#chronologicalAge = args.chronologicalAge ?? 0;
     this.#trainingAge = args.trainingAge ?? 0;
     this.#phone = args.phone ?? '';
     this.#email = args.email ?? '';
 
-    if (!this.#lastName || !this.#firstName)
-      throw new Error('Athlete names cannot be null, undefined or empty strings');
     if (this.#chronologicalAge < this.#trainingAge)
-      throw new Error('chronologicalAge must be >= trainingAge');
+      throw new Error('Athlete chronologicalAge must be >= trainingAge');
   }
 
   get id() {
@@ -42,7 +39,7 @@ export class Athlete {
   };
 
   set lastName(newLastName: string) {
-    if (!newLastName.trim()) throw new Error('Last Name cannot be null, undefined or empty strings');
+    if (!newLastName.trim()) throw new Error('Athlete lastName cannot be null, undefined or empty strings');
     this.#lastName = newLastName.trim();
   };
   
@@ -51,8 +48,8 @@ export class Athlete {
   };
 
   set firstName(newFirstName: string) {
-    if (!newFirstName.trim()) throw new Error('First Name cannot be null, undefined or empty strings');
-    this.#lastName = newFirstName.trim();
+    if (!newFirstName.trim()) throw new Error('Athlete firstName cannot be null, undefined or empty strings');
+    this.#firstName = newFirstName.trim();
   };
 
   get chronologicalAge(): number {
