@@ -23,11 +23,11 @@ const styles = StyleSheet.create({
 
 export const AthleteCreateButton = (props: Props) => {
   const navigation = useNavigation();
-  const { destinationScreen } = props;
+
   const handlePress = (): void => {
     navigation.dispatch(
       CommonActions.navigate({
-        name: 'AthleteCreateScreen',
+        name: 'AthleteCreate',
       })
     );
   };

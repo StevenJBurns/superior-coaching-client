@@ -2,7 +2,7 @@ import React from 'react';
 import { FlatList, Text, StyleSheet } from 'react-native';
 import { Screen } from '../../Screen';
 import { AthleteCreateButton } from './AthleteCreateButton';
-import { AthleteListCard } from '../AthleteListCard/AthleteListCard';
+import { AthleteListCard } from './AthleteListCard/AthleteListCard';
 import mockAthleteData from '../../../../data/athletes.json';
 
 type ListProps = {
@@ -20,12 +20,15 @@ const styles = StyleSheet.create({
   },
 });
 
-export const AthleteList = (props: ListProps) => {
-  const [selectedId, setSelectedId] = React.useState();
-  const renderItem = ({item}: any) => (<AthleteListCard item={item} />);
+export const AthleteListScreen = (props: ListProps) => {
+  const { navigation } = props;
+
+  const renderItem = ({item}: any) => (
+    <AthleteListCard item={item} />
+  );
 
   return (
-    <Screen navigation={props.navigation}>
+    <Screen navigation={navigation}>
       <Text style={styles.text}>ATHLETE CONTENT</Text>
       <AthleteCreateButton />
       <FlatList

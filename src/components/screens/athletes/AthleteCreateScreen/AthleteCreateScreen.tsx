@@ -1,10 +1,8 @@
 import React from 'react';
-import { Pressable, Text, TextInput, StyleSheet } from 'react-native';
+import { useNavigation, CommonActions } from '@react-navigation/native';
+import { Button, Text, TextInput, StyleSheet, View } from 'react-native';
+import { Athlete } from '../../../../models/Athlete';
 import { Screen } from '../../Screen';
-
-type ListProps = {
-  navigation: any,
-};
 
 const styles = StyleSheet.create({
   text: {
@@ -14,6 +12,9 @@ const styles = StyleSheet.create({
   button: {
     width: 96,
     height: 48,
+    margin: 4,
+    display: 'flex',
+    backgroundColor: 'azure'
   },
   input: {
     width: 160,
@@ -25,24 +26,106 @@ const styles = StyleSheet.create({
   }
 });
 
-export const AthleteCreateScreen = (props: ListProps) => {
-  const [lastName, setLastName] = React.useState('');
-  const [firstName, setFirstName] = React.useState('');
-  const [email, setEmail] = React.useState('');
+enum athleteAction {
+  setLastName,
+  setFirstName,
+  setPhone,
+  setEmail,
+};
+
+type actions = {
+  type: athleteAction,
+  value: string,
+};
+
+const initialState = new Athlete({
+  lastName: 'Smith',
+  firstName: 'John',
+  phone: '123-456-7890',
+  email: 'john@athlete.com',
+  chronologicalAge: 16,
+  trainingAge: 3,
+});
+
+const r = (athlete: Athlete, action: actions ): Athlete => {
+  switch (action.type) {
+    case athleteAction.setLastName:
+      athlete.lastName = action.value;
+      break;
+    case athleteAction.setFirstName:
+      athlete.firstName = action.value;
+      break;
+    case athleteAction.setPhone:
+      athlete.phone = action.value;
+      break;
+    case athleteAction.setEmail:
+      athlete.email = action.value;
+      break;
+    default:
+      break;
+  };
+  console.table(athlete);
+  return athlete;
+};
+
+export const AthleteCreateScreen = () => {
+  const navigation = useNavigation();
+  const [_, dispatch] = React.useReducer(r, initialState);
+
+  const handleClickOk = (): void => {
+    navigation.dispatch(
+      CommonActions.navigate({
+        name: 'Athletes',
+      })
+    );
+  };
+
+  const handleClickCancel = (): void => {
+    navigation.dispatch(
+      CommonActions.navigate({
+        name: 'Athletes',
+      })
+    );
+  };
+
+  const handleLastNameTextChange = (text: string) => {
+    if (text) dispatch({ type: athleteAction.setLastName, value: text });
+  }
 
   return (
-    <Screen navigation={props.navigation}>
+    <Screen navigation={navigation}>
       <Text style={[styles.text]}>CREATE NEW ATHLETE</Text>
-      <TextInput style={styles.input} placeholder='Last Name' value={lastName} onChangeText={text => setLastName(text)} />
-      <TextInput style={styles.input} placeholder='First Name' value={firstName} onChangeText={text => setFirstName(text)}/>
-      <TextInput style={styles.input} placeholder='Email' value={email} onChangeText={text => setEmail(text)}/>
-      <TextInput />
-      <Pressable style={styles.button}>
-        <Text>OK</Text>
-      </Pressable>
-      <Pressable style={styles.button}>
-        <Text>Cancel</Text>
-      </Pressable>
+      <TextInput
+        style={styles.input}
+        placeholder='Last Name'
+        onChangeText={handleLastNameTextChange}
+        clearTextOnFocus
+      />
+      <TextInput
+        style={styles.input}
+        placeholder='First Name'
+        onChangeText={text => dispatch({ type: athleteAction.setFirstName, value: text })}
+        clearTextOnFocus
+      />
+      <TextInput
+        style={styles.input}
+        placeholder='Phone'
+        onChangeText={text => dispatch({ type: athleteAction.setPhone, value: text })}
+        keyboardType='number-pad'
+        clearTextOnFocus
+      />
+      <TextInput
+        style={styles.input}
+        placeholder='Email'
+        textContentType='emailAddress'
+        onChangeText={text => dispatch({ type: athleteAction.setEmail, value: text })}
+        keyboardType='email-address'
+        clearTextOnFocus
+      />
+      <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+        <Button title="OK" onPress={handleClickOk} />
+        <Button title="Cancel" onPress={handleClickCancel} />
+      </View>
     </Screen>
   );
 };
