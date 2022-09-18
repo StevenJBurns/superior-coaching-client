@@ -2,7 +2,7 @@ import React from 'react';
 import { FlatList, Text, StyleSheet } from 'react-native';
 import { Screen } from '../../Screen';
 import { AthleteCreateButton } from './AthleteCreateButton';
-import { AthleteListCard } from './AthleteListCard/AthleteListCard';
+import { AthleteListCard } from '../AthleteListCard/AthleteListCard';
 import mockAthleteData from '../../../../data/athletes.json';
 
 type ListProps = {
