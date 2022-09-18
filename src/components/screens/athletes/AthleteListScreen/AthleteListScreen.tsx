@@ -22,14 +22,12 @@ const styles = StyleSheet.create({
 
 export const AthleteListScreen = (props: ListProps) => {
   const { navigation } = props;
-
-  const renderItem = ({item}: any) => (
-    <AthleteListCard item={item} />
-  );
+  const renderItem = ({item}: any) => (<AthleteListCard item={item} />);
 
   return (
     <Screen navigation={navigation}>
       <Text style={styles.text}>ATHLETE CONTENT</Text>
+      <Text>{`Total Athlete Count: ${mockAthleteData.length ?? 0}`}</Text>
       <AthleteCreateButton />
       <FlatList
         data={mockAthleteData}

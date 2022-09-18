@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigation, CommonActions } from '@react-navigation/native';
-import { Button, Text, TextInput, StyleSheet, View } from 'react-native';
+import { Pressable, Text, TextInput, StyleSheet, View } from 'react-native';
 import { Athlete } from '../../../../models/Athlete';
 import { Screen } from '../../Screen';
 
@@ -9,12 +9,19 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
   },
+  screenActionsView : {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   button: {
-    width: 96,
-    height: 48,
     margin: 4,
-    display: 'flex',
-    backgroundColor: 'azure'
+    padding: 8,
+    width: 96,
+    borderRadius: 4,
+    backgroundColor: 'lightblue',
+    textAlign: 'center',
+    color: 'white',
   },
   input: {
     width: 160,
@@ -94,7 +101,7 @@ export const AthleteCreateScreen = () => {
 
   return (
     <Screen navigation={navigation}>
-      <Text style={[styles.text]}>CREATE NEW ATHLETE</Text>
+      <Text style={styles.text}>CREATE NEW ATHLETE</Text>
       <TextInput
         style={styles.input}
         placeholder='Last Name'
@@ -122,9 +129,13 @@ export const AthleteCreateScreen = () => {
         keyboardType='email-address'
         clearTextOnFocus
       />
-      <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-        <Button title="OK" onPress={handleClickOk} />
-        <Button title="Cancel" onPress={handleClickCancel} />
+      <View style={styles.screenActionsView}>
+        <Pressable style={[styles.button, { backgroundColor: 'darkgreen' }]} onPress={handleClickOk}>
+          <Text style={{ color: 'white' }}>OK</Text>
+        </Pressable>
+        <Pressable style={[styles.button, { backgroundColor: 'crimson' }]} onPress={handleClickCancel}>
+          <Text style={{ color: 'white' }}>CANCEL</Text>
+        </Pressable>
       </View>
     </Screen>
   );

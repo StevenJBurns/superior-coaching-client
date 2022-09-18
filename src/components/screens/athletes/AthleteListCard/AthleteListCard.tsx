@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
 
 export const AthleteListCard = (props: ItemProps) => {
   const navigation = useNavigation();
-  const { id } = props.item;
+  const { id, lastName,  firstName } = props.item;
   
   const handlePress = () => {
     navigation.dispatch(CommonActions.navigate({
@@ -42,8 +42,8 @@ export const AthleteListCard = (props: ItemProps) => {
 
   return (
     <Pressable style={styles.itemCard} onPress={handlePress}>
-      <Text style={styles.itemLine1}>{`${props.item.lastName}, ${props.item.firstName}`}</Text>
-      <Text style={styles.itemLine2}>{props.item.id}</Text>
+      <Text style={styles.itemLine1}>{`${lastName}, ${firstName}`}</Text>
+      <Text style={styles.itemLine2}>{id}</Text>
     </Pressable>
   );
 };
