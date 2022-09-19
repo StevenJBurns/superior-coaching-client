@@ -34,6 +34,11 @@ export class Athlete {
     return this.#id;
   };
 
+  set id(newId: string | undefined) {
+    if (!newId?.trim()) throw new Error('Athlete ID cannot be null, undefined or empty strings');
+    this.#id = newId.trim() || undefined;
+  };
+
   get lastName(): string {
     return this.#lastName;
   };
