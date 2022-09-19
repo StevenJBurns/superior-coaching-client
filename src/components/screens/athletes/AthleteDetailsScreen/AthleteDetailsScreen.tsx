@@ -1,5 +1,6 @@
+import React from 'react';
 import { useNavigation, CommonActions } from '@react-navigation/native';
-import { Button, Text, TextInput, StyleSheet, View, Pressable } from 'react-native';
+import { Text, TextInput, StyleSheet, View, Pressable, NativeEventEmitter, LayoutChangeEvent, NativeSyntheticEvent, TextInputFocusEventData } from 'react-native';
 import { Screen } from '../../Screen';
 import data from '../../../../data/athletes.json';
 
@@ -13,6 +14,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
+  input: {
+    margin: 4,
+    padding: 4,
+    width: 144,
+    backgroundColor: 'gainsboro',
+  }
+  ,
   button: {
     margin: 4,
     padding: 8,
@@ -26,8 +34,13 @@ const styles = StyleSheet.create({
 
 export const AthleteDetailsScreen = (props: { navigation: any, route: any }) => {
   const navigation = useNavigation();
+  const [canEdit, setCanEdit] = React.useState<boolean>(false);
 
   const athlete = data.find(a => a.id === props.route.params.athleteId);
+
+  const handleFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+    if (canEdit) return;
+  };
 
   const handleClickOk = (): void => {
     navigation.dispatch(
@@ -45,11 +58,15 @@ export const AthleteDetailsScreen = (props: { navigation: any, route: any }) => 
     );
   };
 
+  const handleEditStateToggle = () => {
+    setCanEdit(!canEdit);
+  };
+
   return (
     <Screen navigation={props.navigation}>
       <Text style={styles.text}>ATHLETE DETAILS</Text>
-      <TextInput value={athlete?.lastName} />
-      <TextInput value={athlete?.firstName} />
+      <TextInput value={athlete?.lastName} style={styles.input} onFocus={handleFocus} editable={canEdit} />
+      <TextInput value={athlete?.firstName} style={styles.input} editable={canEdit} />
       <View style={styles.screenActionsView}>
         <Pressable style={[styles.button, { backgroundColor: 'darkgreen' }]} onPress={handleClickOk}>
           <Text style={{ color: 'white' }}>OK</Text>
@@ -58,6 +75,10 @@ export const AthleteDetailsScreen = (props: { navigation: any, route: any }) => 
           <Text style={{ color: 'white' }}>CANCEL</Text>
         </Pressable>
       </View>
+      <Pressable onPress={handleEditStateToggle}>
+        <Text>TOGGLE FORM MODE</Text>
+      </Pressable>
+      <Text>{`can edit: ${canEdit}`}</Text>
     </Screen>
   );
 };

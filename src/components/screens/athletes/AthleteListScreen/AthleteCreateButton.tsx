@@ -9,12 +9,13 @@ const styles = StyleSheet.create({
   createButtonContainer: {
     padding: 8,
     marginVertical: 12,
-    backgroundColor: 'green',
   },
   createButton: {
+    width: 192,
     padding: 8,
     marginVertical: 12,
-    backgroundColor: 'whitesmoke',
+    backgroundColor: 'mediumseagreen'.toLowerCase(),
+    borderRadius: 4,
   },
   buttonText: {
     color: 'green',

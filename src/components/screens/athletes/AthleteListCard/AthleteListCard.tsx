@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     padding: 8,
     height: 64,
     width: '100%',
-    backgroundColor: 'whitesmoke',
+    backgroundColor: '#DBDFE3',
   },
   itemLine1 : {
     marginVertical: 2,
