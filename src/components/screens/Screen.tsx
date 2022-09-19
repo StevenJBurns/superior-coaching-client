@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { NavPanel, NavButton } from '../navigation';
+import { AppFooter } from '../app/AppFooter';
 
 type Props = {
   children: ReactNode,
@@ -26,5 +27,6 @@ export const Screen = (props: Props): JSX.Element => (
     <View style={styles.content}>
       { props.children }
     </View>
+    <AppFooter />
   </>
 );
