@@ -9,16 +9,16 @@ type NewAthleteArgs = {
 };
 
 export class Athlete {
-  #id: string | undefined;
+  #id: string;
   #lastName: string;
   #firstName: string;
   #chronologicalAge: number;
   #trainingAge: number;
   #phone: string;
   #email: string;
-
+  
   constructor(args: NewAthleteArgs) {
-    this.#id = args.id || undefined;
+    this.#id = args.id || '';
     this.#lastName = args.lastName ?? '';
     this.#firstName = args.firstName ?? '';
     this.#chronologicalAge = args.chronologicalAge ?? 0;
@@ -26,25 +26,25 @@ export class Athlete {
     this.#phone = args.phone ?? '';
     this.#email = args.email ?? '';
 
-    if (this.#chronologicalAge < this.#trainingAge)
+    if (this.chronologicalAge < this.trainingAge)
       throw new Error('Athlete chronologicalAge must be >= trainingAge');
   }
 
   get id() {
-    return this.#id;
+    return this.#id ?? undefined;
   };
 
-  set id(newId: string | undefined) {
-    if (!newId?.trim()) throw new Error('Athlete ID cannot be null, undefined or empty strings');
-    this.#id = newId.trim() || undefined;
-  };
+  // set id(newId: string | undefined) {
+  //   if (!newId?.trim()) throw new Error('Athlete ID cannot be null, undefined or empty strings');
+  //   this.#id = newId.trim() || '';
+  // };
 
   get lastName(): string {
     return this.#lastName;
   };
 
   set lastName(newLastName: string) {
-    if (!newLastName.trim()) throw new Error('Athlete lastName cannot be null, undefined or empty strings');
+    // if (!newLastName.trim()) throw new Error('Athlete lastName cannot be null, undefined or empty strings');
     this.#lastName = newLastName.trim();
   };
   
@@ -53,7 +53,7 @@ export class Athlete {
   };
 
   set firstName(newFirstName: string) {
-    if (!newFirstName.trim()) throw new Error('Athlete firstName cannot be null, undefined or empty strings');
+    // if (!newFirstName.trim()) throw new Error('Athlete firstName cannot be null, undefined or empty strings');
     this.#firstName = newFirstName.trim();
   };
 
@@ -89,4 +89,10 @@ export class Athlete {
   set email(newEmail: string) {
     this.#email = newEmail.trim();
   };
+
+  get isValid() {
+    return (
+      this.#lastName.length > 0 && this.#firstName.length > 0
+    )
+  }
 };
