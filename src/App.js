@@ -11,7 +11,7 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <ReduxProvider store={store}>
-      <NativeBaseProvider>
+      {/* <NativeBaseProvider> */}
         <NavigationContainer>
           <Stack.Navigator>
             <Stack.Screen name='Home' component={Home} />
@@ -23,7 +23,7 @@ export default function App() {
           </Stack.Navigator>
           <StatusBar style='auto' />
         </NavigationContainer>
-    </NativeBaseProvider>
+    {/* </NativeBaseProvider> */}
   </ReduxProvider>
   );
 };
