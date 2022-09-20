@@ -1,6 +1,8 @@
 import React from 'react';
+import { useAppDispatch } from '../../../../hooks/redux';
 import { useNavigation, CommonActions } from '@react-navigation/native';
-import { Text, TextInput, StyleSheet, View, Pressable, NativeEventEmitter, LayoutChangeEvent, NativeSyntheticEvent, TextInputFocusEventData } from 'react-native';
+import { Text, TextInput, StyleSheet, View, Pressable, NativeSyntheticEvent, TextInputFocusEventData } from 'react-native';
+import { remove } from '../../../../state/redux/slices/athleteSlice';
 import { Screen } from '../../Screen';
 import data from '../../../../data/athletes.json';
 
@@ -33,6 +35,7 @@ const styles = StyleSheet.create({
 });
 
 export const AthleteDetailsScreen = (props: { navigation: any, route: any }) => {
+  const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const [canEdit, setCanEdit] = React.useState<boolean>(false);
 
@@ -58,6 +61,15 @@ export const AthleteDetailsScreen = (props: { navigation: any, route: any }) => 
     );
   };
 
+  const handleClickDelete = (): void => {
+    dispatch(remove(props.route.params.athleteId));
+    navigation.dispatch(
+      CommonActions.navigate({
+        name: 'Athletes',
+      })
+    );
+  };
+
   const handleEditStateToggle = () => {
     setCanEdit(!canEdit);
   };
@@ -73,6 +85,9 @@ export const AthleteDetailsScreen = (props: { navigation: any, route: any }) => 
         </Pressable>
         <Pressable style={[styles.button, { backgroundColor: 'crimson' }]} onPress={handleClickCancel}>
           <Text style={{ color: 'white' }}>CANCEL</Text>
+        </Pressable>
+        <Pressable style={[styles.button, { backgroundColor: 'crimson' }]} onPress={handleClickDelete}>
+          <Text style={{ color: 'white' }}>DELETE</Text>
         </Pressable>
       </View>
       <Pressable onPress={handleEditStateToggle}>

@@ -1,6 +1,8 @@
 import React from 'react';
+import { useAppDispatch } from '../../../../hooks/redux';
 import { useNavigation, CommonActions } from '@react-navigation/native';
 import { Pressable, Text, TextInput, StyleSheet, View } from 'react-native';
+import { create } from '../../../../state/redux/slices/athleteSlice';
 import { Athlete } from '../../../../models/Athlete';
 import { Screen } from '../../Screen';
 
@@ -45,15 +47,6 @@ type actions = {
   value: string,
 };
 
-const initialState = new Athlete({
-  lastName: 'Smith',
-  firstName: 'John',
-  phone: '123-456-7890',
-  email: 'john@athlete.com',
-  chronologicalAge: 16,
-  trainingAge: 3,
-});
-
 const r = (athlete: Athlete, action: actions ): Athlete => {
   switch (action.type) {
     case athleteAction.setLastName:
@@ -71,15 +64,30 @@ const r = (athlete: Athlete, action: actions ): Athlete => {
     default:
       break;
   };
-  console.table(athlete);
   return athlete;
 };
 
 export const AthleteCreateScreen = () => {
+  const dispatch = useAppDispatch();
   const navigation = useNavigation();
-  const [_, dispatch] = React.useReducer(r, initialState);
 
-  const handleClickOk = (): void => {
+  const athleteInitialState = new Athlete({
+    lastName: '',
+    firstName: '',
+    phone: '123-456-7890',
+    email: 'john@athlete.com',
+    chronologicalAge: 16,
+    trainingAge: 3,
+  });
+  
+  const [athlete, localDispatch] = React.useReducer(r, athleteInitialState);
+  const [isSaveDisabled, setIsSaveDisabled] = React.useState<boolean>(true);
+  const { isValid: isAthleteValid } = athlete;
+
+  console.log(athlete);
+  
+  const handlePressSave = (): void => {
+    dispatch(create(JSON.stringify(athlete)));
     navigation.dispatch(
       CommonActions.navigate({
         name: 'Athletes',
@@ -87,7 +95,7 @@ export const AthleteCreateScreen = () => {
     );
   };
 
-  const handleClickCancel = (): void => {
+  const handlePressCancel = (): void => {
     navigation.dispatch(
       CommonActions.navigate({
         name: 'Athletes',
@@ -96,44 +104,58 @@ export const AthleteCreateScreen = () => {
   };
 
   const handleLastNameTextChange = (text: string) => {
-    if (text) dispatch({ type: athleteAction.setLastName, value: text });
-  }
+    localDispatch({ type: athleteAction.setLastName, value: text });
+  };
 
+  React.useEffect(() => {
+    setIsSaveDisabled(!!athlete.firstName.length || !!athlete.lastName.length);
+  }, [athlete]);
+
+  console.log('isAthleteValid: ', isAthleteValid);
+  console.log('isSaveDisabled: ', isSaveDisabled);
+  
   return (
     <Screen navigation={navigation}>
       <Text style={styles.text}>CREATE NEW ATHLETE</Text>
       <TextInput
         style={styles.input}
         placeholder='Last Name'
+        defaultValue={athlete.lastName}
         onChangeText={handleLastNameTextChange}
-        clearTextOnFocus
       />
       <TextInput
         style={styles.input}
         placeholder='First Name'
-        onChangeText={text => dispatch({ type: athleteAction.setFirstName, value: text })}
-        clearTextOnFocus
+        defaultValue={athlete.firstName}
+        onChangeText={text => localDispatch({ type: athleteAction.setFirstName, value: text })}
       />
       <TextInput
         style={styles.input}
         placeholder='Phone'
-        onChangeText={text => dispatch({ type: athleteAction.setPhone, value: text })}
+        defaultValue={athlete.phone}
+        onChangeText={text => localDispatch({ type: athleteAction.setPhone, value: text })}
         keyboardType='number-pad'
-        clearTextOnFocus
       />
       <TextInput
         style={styles.input}
         placeholder='Email'
+        defaultValue={athlete.email}
         textContentType='emailAddress'
-        onChangeText={text => dispatch({ type: athleteAction.setEmail, value: text })}
+        onChangeText={text => localDispatch({ type: athleteAction.setEmail, value: text })}
         keyboardType='email-address'
-        clearTextOnFocus
       />
       <View style={styles.screenActionsView}>
-        <Pressable style={[styles.button, { backgroundColor: 'darkgreen' }]} onPress={handleClickOk}>
-          <Text style={{ color: 'white' }}>OK</Text>
+        <Pressable
+          style={[styles.button, { backgroundColor: 'darkgreen' }]}
+          onPress={handlePressSave}
+          disabled={isSaveDisabled}
+        >
+          <Text style={{ color: 'white' }}>SAVE</Text>
         </Pressable>
-        <Pressable style={[styles.button, { backgroundColor: 'crimson' }]} onPress={handleClickCancel}>
+        <Pressable
+          style={[styles.button, { backgroundColor: 'crimson' }]}
+          onPress={handlePressCancel}
+        >
           <Text style={{ color: 'white' }}>CANCEL</Text>
         </Pressable>
       </View>

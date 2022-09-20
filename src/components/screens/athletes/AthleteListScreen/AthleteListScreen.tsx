@@ -1,4 +1,5 @@
 import React from 'react';
+import { useAppSelector } from "../../../../hooks/redux";
 import { FlatList, Text, StyleSheet } from 'react-native';
 import { Screen } from '../../Screen';
 import { AthleteCreateButton } from './AthleteCreateButton';
@@ -22,15 +23,16 @@ const styles = StyleSheet.create({
 
 export const AthleteListScreen = (props: ListProps) => {
   const { navigation } = props;
+  const list = useAppSelector(state => state.athletes.list);
   const renderItem = ({item}: any) => (<AthleteListCard item={item} />);
 
   return (
     <Screen navigation={navigation}>
       <Text style={styles.text}>ATHLETE CONTENT</Text>
-      <Text>{`Total Athlete Count: ${mockAthleteData.length ?? 0}`}</Text>
+      <Text>{`Total Athlete Count: ${list.length ?? 0}`}</Text>
       <AthleteCreateButton />
       <FlatList
-        data={mockAthleteData}
+        data={list}
         renderItem={renderItem}
         keyExtractor={item => item.id}
         style={styles.flatList} />
