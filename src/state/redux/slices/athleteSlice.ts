@@ -4,13 +4,11 @@ import initialState from '../../../data/athletes.json';
 
 export const athleteSlice = createSlice({
   name: 'athlete',
-  initialState: { list: initialState},
+  initialState: { list: initialState.slice(0, 4)},
   reducers: {
     create: (state, action) => {
-      const athlete = JSON.parse(action.payload);
-      console.log('create');
-      console.log({athlete});
-      state.list.push({ ...athlete });
+      const newAthlete = JSON.parse(action.payload);
+      state.list.push({ ...newAthlete });
     },
     getAll: state => console.log('getAll'),
     getById: state => console.log('getById'),

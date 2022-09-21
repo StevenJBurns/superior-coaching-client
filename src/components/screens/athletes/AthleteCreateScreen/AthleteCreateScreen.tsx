@@ -96,6 +96,7 @@ export const AthleteCreateScreen = () => {
   };
 
   const [athlete, localDispatch] = React.useReducer(r, newAthleteArgs, init);
+  const [isSaveDisabled, setIsDisabled] = React.useState(!athlete.isValid);
   
   const handleLastNameTextChange = (text: string) => {
     localDispatch({ type: athleteAction.setLastName, value: text });
@@ -106,7 +107,11 @@ export const AthleteCreateScreen = () => {
   };
 
   const handlePressSave = (): void => {
-    dispatch(create(JSON.stringify(athlete)));
+    dispatch(create(JSON.stringify({
+      id: athlete.id,
+      lastName: athlete.lastName,
+      firstName: athlete.firstName,
+    })));
     navigation.dispatch(
       CommonActions.navigate({
         name: 'Athletes',
@@ -121,7 +126,12 @@ export const AthleteCreateScreen = () => {
       })
     );
   };
-    
+  
+  React.useEffect(() => {
+    const { isValid } = athlete;
+    setIsDisabled(!isValid);
+  }, [athlete]);
+
   return (
     <Screen navigation={navigation}>
       <Text style={styles.text}>CREATE NEW ATHLETE</Text>
@@ -154,7 +164,7 @@ export const AthleteCreateScreen = () => {
       />
       <View style={styles.screenActionsView}>
         <Pressable
-          style={[styles.button, { backgroundColor: 'darkgreen' }]}
+          style={[styles.button, { backgroundColor: isSaveDisabled ? 'darkolivegreen' : 'limegreen' }]}
           disabled={!athlete.isValid}
           onPress={handlePressSave}
         >
