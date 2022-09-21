@@ -25,7 +25,6 @@ export const AthleteListScreen = (props: ListProps) => {
   const { navigation } = props;
   const athleteList = useAppSelector(state => state.athletes.list);
   const renderItem = ({item}: any) => (<AthleteListCard item={item} />);
-
   return (
     <Screen navigation={navigation}>
       <AthleteCreateButton />
