@@ -47,45 +47,64 @@ type actions = {
   value: string,
 };
 
+const init = (args: any) => {
+  return new Athlete(args);
+};
+
 const r = (athlete: Athlete, action: actions ): Athlete => {
+  const newAthlete = Object.assign(
+    new Athlete({
+      lastName: athlete.lastName,
+      firstName: athlete.firstName,
+      phone: athlete.phone,
+      email: athlete.email,
+      chronologicalAge: athlete.chronologicalAge,
+      trainingAge: athlete.trainingAge,
+    }),
+    athlete);
+  
   switch (action.type) {
     case athleteAction.setLastName:
-      athlete.lastName = action.value;
+      newAthlete.lastName = action.value;
       break;
     case athleteAction.setFirstName:
-      athlete.firstName = action.value;
+      newAthlete.firstName = action.value;
       break;
     case athleteAction.setPhone:
-      athlete.phone = action.value;
+      newAthlete.phone = action.value;
       break;
     case athleteAction.setEmail:
-      athlete.email = action.value;
+      newAthlete.email = action.value;
       break;
     default:
       break;
   };
-  return athlete;
+  return newAthlete;
 };
 
 export const AthleteCreateScreen = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
 
-  const athleteInitialState = new Athlete({
+  const newAthleteArgs = {
     lastName: '',
     firstName: '',
     phone: '123-456-7890',
     email: 'john@athlete.com',
     chronologicalAge: 16,
     trainingAge: 3,
-  });
-  
-  const [athlete, localDispatch] = React.useReducer(r, athleteInitialState);
-  const [isSaveDisabled, setIsSaveDisabled] = React.useState<boolean>(true);
-  const { isValid: isAthleteValid } = athlete;
+  };
 
-  console.log(athlete);
+  const [athlete, localDispatch] = React.useReducer(r, newAthleteArgs, init);
   
+  const handleLastNameTextChange = (text: string) => {
+    localDispatch({ type: athleteAction.setLastName, value: text });
+  };
+
+  const handleFirstNameTextChange = (text: string) => {
+    localDispatch({ type: athleteAction.setFirstName, value: text });
+  };
+
   const handlePressSave = (): void => {
     dispatch(create(JSON.stringify(athlete)));
     navigation.dispatch(
@@ -102,18 +121,7 @@ export const AthleteCreateScreen = () => {
       })
     );
   };
-
-  const handleLastNameTextChange = (text: string) => {
-    localDispatch({ type: athleteAction.setLastName, value: text });
-  };
-
-  React.useEffect(() => {
-    setIsSaveDisabled(!!athlete.firstName.length || !!athlete.lastName.length);
-  }, [athlete]);
-
-  console.log('isAthleteValid: ', isAthleteValid);
-  console.log('isSaveDisabled: ', isSaveDisabled);
-  
+    
   return (
     <Screen navigation={navigation}>
       <Text style={styles.text}>CREATE NEW ATHLETE</Text>
@@ -127,7 +135,7 @@ export const AthleteCreateScreen = () => {
         style={styles.input}
         placeholder='First Name'
         defaultValue={athlete.firstName}
-        onChangeText={text => localDispatch({ type: athleteAction.setFirstName, value: text })}
+        onChangeText={handleFirstNameTextChange}
       />
       <TextInput
         style={styles.input}
@@ -147,8 +155,8 @@ export const AthleteCreateScreen = () => {
       <View style={styles.screenActionsView}>
         <Pressable
           style={[styles.button, { backgroundColor: 'darkgreen' }]}
+          disabled={!athlete.isValid}
           onPress={handlePressSave}
-          disabled={isSaveDisabled}
         >
           <Text style={{ color: 'white' }}>SAVE</Text>
         </Pressable>
