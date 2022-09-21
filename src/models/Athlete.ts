@@ -1,3 +1,6 @@
+import 'react-native-get-random-values';
+import {v4 as uuid_v4 } from 'uuid';
+
 type NewAthleteArgs = {
   id?: string,
   lastName: string,
@@ -18,7 +21,8 @@ export class Athlete {
   #email: string;
   
   constructor(args: NewAthleteArgs) {
-    this.#id = args.id || '';
+    /* should find a way to generate UUIDs on the back-end eventually */
+    this.#id = args.id || uuid_v4().toUpperCase();
     this.#lastName = args.lastName ?? '';
     this.#firstName = args.firstName ?? '';
     this.#chronologicalAge = args.chronologicalAge ?? 0;
@@ -93,6 +97,6 @@ export class Athlete {
   get isValid() {
     return (
       this.#lastName.length > 0 && this.#firstName.length > 0
-    )
+    );
   }
 };
