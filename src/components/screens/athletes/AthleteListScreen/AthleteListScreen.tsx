@@ -11,8 +11,9 @@ type ListProps = {
 
 const styles = StyleSheet.create({
   text: {
-    fontSize: 20,
+    marginVertical: 16,
     fontWeight: 'bold',
+    fontSize: 14,
   },
   flatList: {
     width: '100%',
@@ -27,9 +28,9 @@ export const AthleteListScreen = (props: ListProps) => {
 
   return (
     <Screen navigation={navigation}>
-      <Text style={styles.text}>ATHLETE CONTENT</Text>
-      <Text>{`Total Athlete Count: ${athleteList.length ?? 0}`}</Text>
       <AthleteCreateButton />
+      <Text>{`Total Athlete Count: ${athleteList.length ?? 0}`}</Text>
+      <Text style={styles.text}>Select an Athlete card below to Edit or Delete</Text>
       <FlatList
         data={athleteList}
         renderItem={renderItem}
