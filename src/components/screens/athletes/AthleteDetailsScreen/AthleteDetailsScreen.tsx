@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAppDispatch, useAppSelector } from '../../../../hooks/redux';
+import { useReduxDispatch, useReduxSelector } from '../../../../hooks/redux';
 import { useNavigation, CommonActions } from '@react-navigation/native';
 import { Text, TextInput, StyleSheet, View, Pressable, NativeSyntheticEvent, TextInputFocusEventData } from 'react-native';
 import { remove } from '../../../../state/redux/slices/athleteSlice';
@@ -35,11 +35,11 @@ const styles = StyleSheet.create({
 });
 
 export const AthleteDetailsScreen = (props: { navigation: any, route: any }) => {
-  const dispatch = useAppDispatch();
+  const dispatch = useReduxDispatch();
   const navigation = useNavigation();
   const [canEdit, setCanEdit] = React.useState<boolean>(false);
 
-  const athleteList = useAppSelector(state => state.athletes.list);;
+  const athleteList = useReduxSelector(state => state.athletes.list);;
   const selectedAthlete = athleteList.find(a => a.id === props.route.params.athleteId);
 
   const handleFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
@@ -80,11 +80,11 @@ export const AthleteDetailsScreen = (props: { navigation: any, route: any }) => 
         <TextInput value={selectedAthlete?.firstName} style={styles.input} editable={canEdit} />
       </View>
       <View style={styles.screenActionsView}>
-        <Pressable style={[styles.button, { backgroundColor: 'darkgreen' }]} onPress={handlePressEdit}>
+        <Pressable style={[styles.button, { backgroundColor: 'limegreen' }]} onPress={handlePressEdit}>
           <Text style={{ color: 'white', textAlign: 'center' }}>EDIT</Text>
         </Pressable>
         <Pressable style={[styles.button, { backgroundColor: 'crimson' }]} onPress={handlePressCancel}>
-          <Text style={{ color: 'white',textAlign: 'center' }}>CANCEL</Text>
+          <Text style={{ color: 'white', textAlign: 'center' }}>CANCEL</Text>
         </Pressable>
         <Pressable style={[styles.button, { backgroundColor: 'crimson' }]} onPress={handlePressDelete}>
           <Text style={{ color: 'white', textAlign: 'center' }}>DELETE</Text>
