@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAppDispatch } from '../../../../hooks/redux';
+import { useReduxDispatch } from '../../../../hooks/redux';
 import { useNavigation, CommonActions } from '@react-navigation/native';
 import { Pressable, Text, TextInput, StyleSheet, View } from 'react-native';
 import { create } from '../../../../state/redux/slices/athleteSlice';
@@ -40,6 +40,8 @@ enum athleteAction {
   setFirstName,
   setPhone,
   setEmail,
+  setChronologicalAge,
+  setTrainingAge,
 };
 
 type actions = {
@@ -76,6 +78,12 @@ const r = (athlete: Athlete, action: actions ): Athlete => {
     case athleteAction.setEmail:
       newAthlete.email = action.value;
       break;
+    case athleteAction.setChronologicalAge:
+      newAthlete.chronologicalAge = parseInt(action.value);
+      break;
+    case athleteAction.setTrainingAge:
+      newAthlete.trainingAge = parseInt(action.value);
+      break;
     default:
       break;
   };
@@ -83,16 +91,16 @@ const r = (athlete: Athlete, action: actions ): Athlete => {
 };
 
 export const AthleteCreateScreen = () => {
-  const dispatch = useAppDispatch();
+  const dispatch = useReduxDispatch();
   const navigation = useNavigation();
 
   const newAthleteArgs = {
     lastName: '',
     firstName: '',
-    phone: '123-456-7890',
-    email: 'john@athlete.com',
-    chronologicalAge: 16,
-    trainingAge: 3,
+    phone: '',
+    email: '',
+    chronologicalAge: 0,
+    trainingAge: 0,
   };
 
   const [athlete, localDispatch] = React.useReducer(r, newAthleteArgs, init);
@@ -162,19 +170,33 @@ export const AthleteCreateScreen = () => {
         onChangeText={text => localDispatch({ type: athleteAction.setEmail, value: text })}
         keyboardType='email-address'
       />
+      <TextInput
+        style={styles.input}
+        placeholder='Chronological Age'
+        defaultValue={athlete.chronologicalAge.toString()}
+        onChangeText={text => localDispatch({ type: athleteAction.setChronologicalAge, value: text })}
+        keyboardType='email-address'
+      />
+      <TextInput
+        style={styles.input}
+        placeholder='Training Age'
+        defaultValue={athlete.trainingAge.toString()}
+        onChangeText={text => localDispatch({ type: athleteAction.setTrainingAge, value: text })}
+        keyboardType='email-address'
+      />
       <View style={styles.screenActionsView}>
         <Pressable
           style={[styles.button, { backgroundColor: isSaveDisabled ? 'darkolivegreen' : 'limegreen' }]}
           disabled={!athlete.isValid}
           onPress={handlePressSave}
         >
-          <Text style={{ color: 'white' }}>SAVE</Text>
+          <Text style={{ color: 'white', textAlign: 'center' }}>SAVE</Text>
         </Pressable>
         <Pressable
           style={[styles.button, { backgroundColor: 'crimson' }]}
           onPress={handlePressCancel}
         >
-          <Text style={{ color: 'white' }}>CANCEL</Text>
+          <Text style={{ color: 'white', textAlign: 'center' }}>CANCEL</Text>
         </Pressable>
       </View>
     </Screen>
