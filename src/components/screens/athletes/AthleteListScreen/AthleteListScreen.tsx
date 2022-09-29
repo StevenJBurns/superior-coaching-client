@@ -1,9 +1,9 @@
 import React from 'react';
-import { useReduxSelector } from "../../../../hooks/redux";
 import { FlatList, Text } from 'react-native';
 import { Screen } from '../../Screen';
 import { AthleteCreateButton } from './AthleteCreateButton';
 import { AthleteListCard } from '../AthleteListCard/AthleteListCard';
+import { useAthleteList } from "../../../../hooks/";
 import styles from './AthleteListScreen.styles';
 
 type ListProps = {
@@ -12,7 +12,7 @@ type ListProps = {
 
 export const AthleteListScreen = (props: ListProps) => {
   const { navigation } = props;
-  const athleteList = useReduxSelector(state => state.athletes.list);
+  const { athleteList } = useAthleteList();
   const renderItem = ({item}: any) => (<AthleteListCard item={item} />);
 
   return (
