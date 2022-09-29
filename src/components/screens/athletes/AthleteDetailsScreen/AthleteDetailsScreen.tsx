@@ -4,7 +4,6 @@ import { useNavigation, CommonActions } from '@react-navigation/native';
 import { Text, TextInput, StyleSheet, View, Pressable, NativeSyntheticEvent, TextInputFocusEventData } from 'react-native';
 import { remove } from '../../../../state/redux/slices/athleteSlice';
 import { Screen } from '../../Screen';
-import data from '../../../../data/athletes.json';
 
 const styles = StyleSheet.create({
   text: {
