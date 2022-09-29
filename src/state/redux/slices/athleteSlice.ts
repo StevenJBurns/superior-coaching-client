@@ -8,13 +8,14 @@ export const athleteSlice = createSlice({
   reducers: {
     create: (state, action) => {
       const newAthlete = JSON.parse(action.payload);
+      console.log('create ', newAthlete.id);
       state.list.push({ ...newAthlete });
     },
     getAll: state => console.log('getAll'),
     getById: state => console.log('getById'),
     update: state => console.log('update'),
     remove: (state, action) => {
-      console.log('remove', action.payload);
+      console.log('remove ', action.payload);
       const newList = state.list.filter(athlete => athlete.id !== action.payload);
       state.list = newList; 
     }
