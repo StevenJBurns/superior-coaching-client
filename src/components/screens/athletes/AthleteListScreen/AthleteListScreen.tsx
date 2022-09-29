@@ -1,30 +1,20 @@
 import React from 'react';
-import { useAppSelector } from "../../../../hooks/redux";
-import { FlatList, Text, StyleSheet } from 'react-native';
+import { useReduxSelector } from "../../../../hooks/redux";
+import { FlatList, Text } from 'react-native';
 import { Screen } from '../../Screen';
 import { AthleteCreateButton } from './AthleteCreateButton';
 import { AthleteListCard } from '../AthleteListCard/AthleteListCard';
+import styles from './AthleteListScreen.styles';
 
 type ListProps = {
   navigation: any,
 };
 
-const styles = StyleSheet.create({
-  text: {
-    marginVertical: 16,
-    fontWeight: 'bold',
-    fontSize: 14,
-  },
-  flatList: {
-    width: '100%',
-    maxWidth: 400,
-  },
-});
-
 export const AthleteListScreen = (props: ListProps) => {
   const { navigation } = props;
-  const athleteList = useAppSelector(state => state.athletes.list);
+  const athleteList = useReduxSelector(state => state.athletes.list);
   const renderItem = ({item}: any) => (<AthleteListCard item={item} />);
+
   return (
     <Screen navigation={navigation}>
       <AthleteCreateButton />
