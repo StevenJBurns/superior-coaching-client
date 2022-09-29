@@ -21,7 +21,7 @@ export class Athlete {
   #email: string;
   
   constructor(args: NewAthleteArgs) {
-    /* should find a way to generate UUIDs on the back-end eventually */
+    /* will need to generate UUIDs on the back-end eventually */
     this.#id = args.id || uuid_v4().toUpperCase();
     this.#lastName = args.lastName ?? '';
     this.#firstName = args.firstName ?? '';
@@ -78,6 +78,7 @@ export class Athlete {
     if (newAge < 1) throw new Error('Athlete trainingAge must be >= 1');
     this.#trainingAge = newAge;
   };
+
   get phone(): string {
     return this.#phone;
   };
@@ -96,7 +97,7 @@ export class Athlete {
 
   get isValid() {
     return (
-      this.#lastName.length > 0 && this.#firstName.length > 0
+      this.#lastName.length > 0 && this.#firstName.length > 0 && (this.#chronologicalAge >= this.#trainingAge)
     );
   }
 };
