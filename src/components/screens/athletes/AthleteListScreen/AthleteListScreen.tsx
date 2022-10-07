@@ -1,39 +1,31 @@
 import React from 'react';
-import { FlatList, Text, StyleSheet } from 'react-native';
+import { FlatList, Text } from 'react-native';
 import { Screen } from '../../Screen';
 import { AthleteCreateButton } from './AthleteCreateButton';
 import { AthleteListCard } from '../AthleteListCard/AthleteListCard';
-import mockAthleteData from '../../../../data/athletes.json';
+import { useAthleteList } from "../../../../hooks/";
+import styles from './AthleteListScreen.styles';
 
 type ListProps = {
   navigation: any,
 };
 
-const styles = StyleSheet.create({
-  text: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  flatList: {
-    width: '100%',
-    maxWidth: 400,
-  },
-});
-
 export const AthleteListScreen = (props: ListProps) => {
   const { navigation } = props;
+  const { athleteList } = useAthleteList();
   const renderItem = ({item}: any) => (<AthleteListCard item={item} />);
 
   return (
     <Screen navigation={navigation}>
-      <Text style={styles.text}>ATHLETE CONTENT</Text>
-      <Text>{`Total Athlete Count: ${mockAthleteData.length ?? 0}`}</Text>
       <AthleteCreateButton />
+      <Text>{`Total Athlete Count: ${athleteList.length ?? 0}`}</Text>
+      <Text style={styles.text}>Select an Athlete card below to Edit or Delete</Text>
       <FlatList
-        data={mockAthleteData}
+        data={athleteList}
         renderItem={renderItem}
         keyExtractor={item => item.id}
-        style={styles.flatList} />
+        style={styles.flatList}
+      />
     </Screen>
   );
 };

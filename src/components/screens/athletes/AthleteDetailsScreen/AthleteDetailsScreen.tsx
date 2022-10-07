@@ -1,8 +1,9 @@
 import React from 'react';
+import { useReduxDispatch, useReduxSelector } from '../../../../hooks/redux';
 import { useNavigation, CommonActions } from '@react-navigation/native';
-import { Text, TextInput, StyleSheet, View, Pressable, NativeEventEmitter, LayoutChangeEvent, NativeSyntheticEvent, TextInputFocusEventData } from 'react-native';
+import { Text, TextInput, StyleSheet, View, Pressable, NativeSyntheticEvent, TextInputFocusEventData } from 'react-native';
+import { remove } from '../../../../state/redux/slices/athleteSlice';
 import { Screen } from '../../Screen';
-import data from '../../../../data/athletes.json';
 
 const styles = StyleSheet.create({
   text: {
@@ -33,16 +34,19 @@ const styles = StyleSheet.create({
 });
 
 export const AthleteDetailsScreen = (props: { navigation: any, route: any }) => {
+  const dispatch = useReduxDispatch();
   const navigation = useNavigation();
   const [canEdit, setCanEdit] = React.useState<boolean>(false);
 
-  const athlete = data.find(a => a.id === props.route.params.athleteId);
+  const athleteList = useReduxSelector(state => state.athletes.list);;
+  const selectedAthlete = athleteList.find(a => a.id === props.route.params.athleteId);
 
   const handleFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
     if (canEdit) return;
   };
 
-  const handleClickOk = (): void => {
+
+  const handlePressCancel = (): void => {
     navigation.dispatch(
       CommonActions.navigate({
         name: 'Athletes',
@@ -50,7 +54,8 @@ export const AthleteDetailsScreen = (props: { navigation: any, route: any }) => 
     );
   };
 
-  const handleClickCancel = (): void => {
+  const handlePressDelete = (): void => {
+    dispatch(remove(props.route.params.athleteId));
     navigation.dispatch(
       CommonActions.navigate({
         name: 'Athletes',
@@ -58,27 +63,32 @@ export const AthleteDetailsScreen = (props: { navigation: any, route: any }) => 
     );
   };
 
-  const handleEditStateToggle = () => {
+  const handlePressEdit = () => {
     setCanEdit(!canEdit);
   };
 
   return (
     <Screen navigation={props.navigation}>
       <Text style={styles.text}>ATHLETE DETAILS</Text>
-      <TextInput value={athlete?.lastName} style={styles.input} onFocus={handleFocus} editable={canEdit} />
-      <TextInput value={athlete?.firstName} style={styles.input} editable={canEdit} />
+      <View style={{ flexDirection: 'row', alignItems: 'center'}}>
+        <Text>Last Name:</Text>
+        <TextInput value={selectedAthlete?.lastName} style={styles.input} onFocus={handleFocus} editable={canEdit} />
+      </View>
+      <View style={{ flexDirection: 'row', alignItems: 'center', padding: 4, margin: 4}}>
+        <Text>First Name:</Text>
+        <TextInput value={selectedAthlete?.firstName} style={styles.input} editable={canEdit} />
+      </View>
       <View style={styles.screenActionsView}>
-        <Pressable style={[styles.button, { backgroundColor: 'darkgreen' }]} onPress={handleClickOk}>
-          <Text style={{ color: 'white' }}>OK</Text>
+        <Pressable style={[styles.button, { backgroundColor: 'limegreen' }]} onPress={handlePressEdit}>
+          <Text style={{ color: 'white', textAlign: 'center' }}>EDIT</Text>
         </Pressable>
-        <Pressable style={[styles.button, { backgroundColor: 'crimson' }]} onPress={handleClickCancel}>
-          <Text style={{ color: 'white' }}>CANCEL</Text>
+        <Pressable style={[styles.button, { backgroundColor: 'crimson' }]} onPress={handlePressCancel}>
+          <Text style={{ color: 'white', textAlign: 'center' }}>CANCEL</Text>
+        </Pressable>
+        <Pressable style={[styles.button, { backgroundColor: 'crimson' }]} onPress={handlePressDelete}>
+          <Text style={{ color: 'white', textAlign: 'center' }}>DELETE</Text>
         </Pressable>
       </View>
-      <Pressable onPress={handleEditStateToggle}>
-        <Text>TOGGLE FORM MODE</Text>
-      </Pressable>
-      <Text>{`can edit: ${canEdit}`}</Text>
     </Screen>
   );
 };

@@ -1,12 +1,6 @@
-import { Text, StyleSheet } from 'react-native';
+import { Text } from 'react-native';
 import { Screen } from '../Screen';
-
-const styles = StyleSheet.create({
-  text: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  }
-});
+import styles from './Home.styles';
 
 export const Home = (props: { navigation: any }) => (
   <Screen navigation={props.navigation}>
