@@ -1,12 +1,21 @@
 import React from 'react';
-import { useReduxDispatch, useReduxSelector } from './redux';
-
-import athleteSlice from "../state/redux/slices/athleteSlice";
+import { useReduxDispatch } from './redux';
+import { Athlete } from '../models/Athlete';
+import { create } from '../state/redux/slices/athleteSlice';
 
 export const useAthlete = () => {
-  const [athlete, setAthlete] = React.useState();
-    
+  const reduxDispatch = useReduxDispatch();
+  const [isAthleteValid, setIsAthleteValid] = React.useState(false);
+
+  const saveNewAthlete = (athlete: any): void => {
+    reduxDispatch(create(JSON.stringify({
+      id: athlete.id,
+      lastName: athlete.lastName,
+      firstName: athlete.firstName,
+    })));
+  };
+
   return {
-    athleteSlice,
+    save: saveNewAthlete,
   };
 };

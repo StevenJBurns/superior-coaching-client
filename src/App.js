@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { Provider as ReduxProvider } from 'react-redux'
 import { store } from './state/redux/store/store';
-// import { NativeBaseProvider } from "native-base";
+import { NativeBaseProvider } from "native-base";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Home, AthleteListScreen, AthleteCreateScreen, Planning, References, AthleteDetailsScreen } from './components/screens';
@@ -11,7 +11,7 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <ReduxProvider store={store}>
-      {/* <NativeBaseProvider> */}
+      <NativeBaseProvider>
         <NavigationContainer>
           <Stack.Navigator>
             <Stack.Screen name='Home' component={Home} />
@@ -23,7 +23,7 @@ export default function App() {
           </Stack.Navigator>
           <StatusBar style='auto' />
         </NavigationContainer>
-    {/* </NativeBaseProvider> */}
+    </NativeBaseProvider>
   </ReduxProvider>
   );
 };
