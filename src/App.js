@@ -9,8 +9,7 @@ import { Home, AthleteListScreen, AthleteCreateScreen, Planning, References, Ath
 
 const Stack = createNativeStackNavigator();
 
-export default function App() {
-  return (
+export default App = () => (
     <ReduxProvider store={store}>
       <PaperProvider>
         <NativeBaseProvider>
@@ -28,5 +27,5 @@ export default function App() {
       </NativeBaseProvider>
     </PaperProvider>
   </ReduxProvider>
-  );
-};
+);
+
