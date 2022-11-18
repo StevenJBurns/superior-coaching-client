@@ -1,6 +1,6 @@
 {
   "name": "superior-coaching",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "main": "src/index.js",
   "scripts": {
     "start": "expo start",
