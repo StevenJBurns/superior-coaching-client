@@ -1,5 +1,5 @@
 import 'react-native-get-random-values';
-import {v4 as uuid_v4 } from 'uuid';
+import { v4 as uuid_v4 } from 'uuid';
 import { NewAthleteArgs } from './AthleteParameters';
 
 export class Athlete {
