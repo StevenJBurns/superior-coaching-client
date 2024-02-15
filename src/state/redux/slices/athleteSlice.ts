@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { RootState } from '../store/store';
-import initialState from '../../../data/athletes.json';
+import initialState from '../../../data/mockAthletes.json';
 
 export const athleteSlice = createSlice({
   name: 'athlete',
