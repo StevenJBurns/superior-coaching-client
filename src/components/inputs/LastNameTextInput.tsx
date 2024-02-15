@@ -1,12 +1,18 @@
 import React from 'react';
-import { Input, IInputProps } from 'native-base';
+import { Box, IInputProps } from 'native-base';
+import { TextInput } from 'react-native-paper';
 import styles from './styles';
 
 export const LastNameTextInput = (props: IInputProps) => (
-  <Input
-    placeholder='Last Name'
-    style={props.style ?? styles.input}
-    defaultValue={props.defaultValue}
-    onChangeText={props.onChangeText}
-  />
+  <Box style={styles.box}>
+    <TextInput
+      label='Last Name'
+      placeholder='Last Name'
+      style={props.style ?? styles.input}
+      defaultValue={props.defaultValue}
+      onChangeText={props.onChangeText}
+      mode='outlined'
+      dense
+    />
+  </Box>
 );

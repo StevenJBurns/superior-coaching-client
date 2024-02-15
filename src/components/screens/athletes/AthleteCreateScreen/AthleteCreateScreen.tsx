@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigation, CommonActions } from '@react-navigation/native';
 import { Pressable, Text, View } from 'react-native';
+import { Button } from 'react-native-paper';
 import { Screen } from '../../Screen';
 import {
   LastNameTextInput,
@@ -60,6 +61,24 @@ export const AthleteCreateScreen = () => {
       <EmailContactTextInput defaultValue={athleteFields.email} />
       <ChronologicalAgeTextInput defaultValue={chronologicalAge > 0 ? chronologicalAge.toString() : undefined} />
       <TrainingAgeTextInput defaultValue={trainingAge > 0 ? trainingAge.toString() : undefined} />
+      <View style={styles.screenActionsView}>
+        <Button
+          style={{ margin: 4}}
+          onPress={handlePressSave}
+          disabled={!isFormValid}
+          mode='contained'
+          >
+            SAVE
+        </Button>
+        <Button
+          color='crimson'
+          style={{ margin: 4}}
+          onPress={handlePressCancel}
+          mode='outlined'
+        >
+          CANCEL
+        </Button>
+      </View>
       <View style={styles.screenActionsView}>
         <Pressable
           style={[styles.button, { backgroundColor: isFormValid ? 'limegreen' : 'darkolivegreen' }]}

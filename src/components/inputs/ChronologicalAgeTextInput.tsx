@@ -1,12 +1,18 @@
 import React from 'react';
-import { TextInput, TextInputProps } from 'react-native';
+import { Box, IInputProps } from 'native-base';
+import { TextInput } from 'react-native-paper';
 import styles from './styles';
 
-export const ChronologicalAgeTextInput = (props: TextInputProps) => (
-  <TextInput
-    placeholder='Chronological Age'
-    style={props.style ?? styles.input}
-    defaultValue={props.defaultValue || undefined}
-    onChangeText={props.onChangeText}
-  />
+export const ChronologicalAgeTextInput = (props: IInputProps) => (
+  <Box style={styles.box}>
+    <TextInput
+      label='Chronological Age'
+      placeholder='Chronological Age'
+      style={props.style ?? styles.input}
+      defaultValue={props.defaultValue || undefined}
+      onChangeText={props.onChangeText}
+      mode='outlined'
+      dense
+    />
+  </Box>
 );

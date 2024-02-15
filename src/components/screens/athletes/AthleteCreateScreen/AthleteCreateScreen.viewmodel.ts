@@ -81,8 +81,7 @@ const useViewModel = () => {
 
   React.useEffect(() => {
     const { lastName, firstName} = athleteFields;
-    const isValid = lastName.length < 1 || firstName.length < 1;
-    isValid ? setIsFormValid(false) : setIsFormValid(true);
+    setIsFormValid(lastName.length > 0 && firstName.length > 0);
   }, [athleteFields]);
 
   return {
